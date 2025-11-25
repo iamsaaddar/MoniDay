@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Menahil - Diary 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap');
+        
+        @keyframes candleFlicker {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        
+        .old-paper {
+            background-image: url('https://www.transparenttextures.com/patterns/rice-paper.png');
+            background-color: rgba(20, 10, 0, 0.9);
+        }
+        
+        .wax-seal {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, rgba(180,30,30,0.9) 0%, rgba(120,20,20,0.9) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.7);
+            font-family: 'Dancing Script', cursive;
+            font-size: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 to-purple-900 min-h-screen overflow-x-hidden font-cormorant">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-gray-950 z-50 flex flex-col items-center justify-center transition-opacity duration-1000">
+        <div class="text-center">
+            <h1 class="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-4 font-dancing animate__animated animate__pulse">
+                Happy Birthday Menahil
+            </h1>
+            <div class="w-20 h-20 mx-auto border-8 border-purple-400 border-t-pink-500 rounded-full animate-spin"></div>
+        </div>
+    </div>
+
+    <!-- Candle Light Effect -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 pointer-events-none" style="mix-blend-mode: overlay; animation: candleFlicker 3s infinite ease-in-out;"></div>
+
+    <!-- Main Content -->
+    <main class="py-12 px-4 md:px-8 lg:px-12 min-h-screen relative z-10">
+        <div class="max-w-4xl mx-auto animate__animated animate__fadeIn animate__delay-1s">
+            <!-- Wax Seal -->
+            <div class="wax-seal bottom-10 right-10 animate__animated animate__fadeIn animate__delay-2s">M</div>
+            
+            <div class="bg-black bg-opacity-70 rounded-3xl shadow-2xl overflow-hidden mb-12 backdrop-blur-sm border border-purple-900/30">
+                <div class="bg-gradient-to-r from-purple-900/80 to-pink-900/80 p-6 relative">
+                    <div class="absolute top-4 right-4 w-8 h-8 bg-pink-400 rounded-full animate-pulse" style="filter: blur(1px);"></div>
+                    <h1 class="text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-100 to-purple-200 font-playfair tracking-wider">
+                        Diary Entry #2
+                    </h1>
+                    <p class="text-center text-pink-100/80 italic mt-2">Our First Date</p>
+                </div>
+                
+                <div class="p-8">
+                    <div class="diary-page old-paper p-8 md:p-10 rounded-lg shadow-inner border border-pink-900/20 relative">
+                        <div class="absolute top-4 left-4 w-1 h-8 bg-gradient-to-b from-pink-400 to-purple-600 rounded-full"></div>
+                        
+                        <p class="text-pink-50/90 leading-relaxed mb-6 text-lg animate__animated animate__fadeIn animate__delay-1s">
+                            <span class="text-pink-300 font-semibold">My darling Menahil,</span><br><br>
+                            I was so nervous today. I must have changed my outfit five times before finally settling on something I hoped you'd like. The butterflies in my stomach were doing somersaults as I waited for you.
+                        </p>
+                        
+                        <p class="text-pink-50/90 leading-relaxed mb-6 text-lg animate__animated animate__fadeIn animate__delay-1s">
+                            When you arrived, all my nervousness melted away. You looked absolutely breathtaking. That little black dress, your hair perfectly framing your face, and that smile - oh that smile could light up cities.
+                        </p>
+                        
+                        <p class="text-pink-50/90 leading-relaxed text-lg animate__animated animate__fadeIn animate__delay-2s">
+                            We talked for hours, losing track of time completely. I learned that you're even more wonderful than I imagined. That night, as I walked you home, I realized I never wanted our conversation to end. I think that's when I started falling in love with you.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between mt-12 animate__animated animate__fadeInUp animate__delay-2s">
+                <a href="diary1.html" class="bg-gradient-to-r from-purple-900/80 to-pink-900/80 hover:from-purple-800/80 hover:to-pink-800/80 text-purple-100 px-8 py-4 rounded-full text-xl font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center border border-purple-800/50">
+                    <i data-feather="arrow-left" class="mr-2"></i> Back
+                </a>
+                <a href="diary3.html" class="bg-gradient-to-r from-pink-900/80 to-purple-900/80 hover:from-pink-800/80 hover:to-purple-800/80 text-pink-100 px-8 py-4 rounded-full text-xl font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center border border-pink-800/50">
+                    Next <i data-feather="arrow-right" class="ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Rose Petals -->
+    <div class="floating-petals">
+        <div class="petal">🌸</div>
+        <div class="petal">🌹</div>
+        <div class="petal">🌷</div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>feather.replace();</script>
+</body>
+</html>

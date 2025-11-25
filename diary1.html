@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Menahil - Diary 1</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/feather-icons"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap');
+
+/* Fonts */
+body { font-family: 'Cormorant Garamond', serif; background: linear-gradient(to bottom, #0a0a0a, #1a1a1a); overflow-x: hidden; color: #fefefe; }
+
+/* Candle flicker effect overlay */
+@keyframes candleFlicker { 0%,100%{opacity:0.8;} 50%{opacity:1;} }
+.candle-overlay { animation: candleFlicker 3s infinite ease-in-out; mix-blend-mode: overlay; }
+
+/* Ink spots */
+.ink-spot { position: absolute; width:50px; height:50px; background: radial-gradient(circle, rgba(30,30,30,0.8) 0%, transparent 70%); border-radius:50%; animation: inkMove 8s infinite alternate ease-in-out;}
+@keyframes inkMove { 0%{transform: translate(0,0);} 100%{transform: translate(15px,15px);} }
+
+/* Diary page */
+.diary-page { background: linear-gradient(to bottom right, rgba(10,10,10,0.9), rgba(20,20,20,0.7)); padding: 2.5rem; border-radius: 1rem; position: relative; overflow: hidden; box-shadow: inset 0 0 30px rgba(255,255,255,0.05); border: 1px solid rgba(255,200,150,0.1); }
+
+/* Floating petals */
+.floating-petals { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+.petal { position:absolute; font-size:2rem; opacity:0.8; animation: floatPetal linear infinite; }
+@keyframes floatPetal { 0%{transform: translateY(-10px) rotate(0deg); opacity:0;} 10%{opacity:1;} 100%{transform: translateY(120vh) rotate(360deg); opacity:0;} }
+
+/* Navigation buttons */
+.nav-btn { transition: all 0.25s ease; display:flex; align-items:center; justify-content:center; gap:0.5rem; font-weight:600; padding:1rem 2rem; border-radius:9999px; }
+.nav-btn:hover { transform: scale(1.05); box-shadow:0 8px 25px rgba(255,255,255,0.1); }
+
+/* Gradient text */
+.gradient-text { background: linear-gradient(to right, #ffda7b, #ff7b7b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* Intro Message */
+#intro { position:fixed; inset:0; background:#0a0a0a; display:flex; flex-col; justify-center; items-center; z-index:50; padding:2rem; text-align:center; }
+#intro p { margin-bottom:2rem; font-size:1rem; color:#fefefe; line-height:1.5rem; }
+#intro button { padding:1rem 2rem; font-weight:600; border-radius:9999px; background:linear-gradient(to right,#ffda7b,#ff7b7b); color:#000; transition:0.3s; }
+#intro button:hover { transform:scale(1.05); }
+</style>
+</head>
+
+<body class="relative">
+
+<!-- Intro Message -->
+<div id="intro" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 px-4">
+    <div class="bg-gray-900/90 rounded-2xl p-6 max-w-sm text-center shadow-xl">
+        <p class="text-sm sm:text-base text-amber-100 leading-relaxed mb-6">
+            Hey Moni, I know you wanted to read my diary. Here are 3 entries. These are just my honest, flowing-through-my-mind thoughts. You can skip them if you want.
+        </p>
+        <button id="read-btn" class="px-6 py-3 font-semibold rounded-full bg-gradient-to-r from-amber-400 to-rose-400 text-black text-sm sm:text-base shadow-md hover:scale-105 transition-transform">
+            Read
+        </button>
+    </div>
+</div>
+
+
+<!-- Candle Light Overlay -->
+<div class="fixed inset-0 bg-black bg-opacity-50 candle-overlay pointer-events-none"></div>
+
+<!-- Floating petals -->
+<div class="floating-petals"></div>
+
+<main id="diary-content" class="relative z-10 min-h-screen py-12 px-4 md:px-8 lg:px-12" style="display:none;">
+    <div class="max-w-4xl mx-auto animate__animated animate__fadeIn">
+
+        <!-- Ink spots -->
+        <div class="ink-spot top-20 left-20"></div>
+        <div class="ink-spot bottom-20 right-20"></div>
+
+        <div class="bg-black bg-opacity-70 rounded-3xl shadow-2xl mb-12 backdrop-blur-sm border border-rose-900/20">
+            <div class="bg-gradient-to-r from-rose-900/80 to-amber-900/80 p-6 relative">
+                <div class="absolute top-4 right-4 w-8 h-8 bg-amber-400 rounded-full animate-pulse blur-sm"></div>
+                <h1 class="text-4xl font-playfair text-center gradient-text tracking-wider">EID DAY</h1>
+                <p class="text-center text-amber-100/80 italic mt-2">First Realization</p>
+            </div>
+
+            <div class="p-8">
+                <div class="diary-page">
+                    <div class="absolute top-4 left-4 w-1 h-8 bg-gradient-to-b from-amber-400 to-amber-600 rounded-full"></div>
+
+                    <p class="text-amber-50/90 leading-relaxed mb-6 text-lg animate__animated animate__fadeIn animate__delay-1s">
+                        <span class="text-amber-300 font-semibold">To Moni</span><br><br>
+                        It was Eid Day and it's so fuckin depressing cause i ruined this day already and i don't know what happened or why i got so emotional. I was gonna send her an Eid Mubarak message but I don't kmow why that situation made me so angry it wasn't even her fault i was just angry cause I didn't had the guts to tell her that i like her more then friend and if you would like date me if we met in real life. So what actually happened is that when i saw other people romantically wishing eid Mubarak to their partners and i had this feeling of saying it to her i also wanted to but since i couldn't that made me angry and my dumbass decided not to send any message in anger or spite and i know my anger at her is stupid but it was based on that why she haven't gave me any signal she should atleast know by now. I kmow it's stupid but that just i thought at the moment
+                    </p>
+                    <p class="text-amber-50/90 leading-relaxed mb-6 text-lg animate__animated animate__fadeIn animate__delay-2s">
+                        So later the day we didn't talk I don't know she wasn't active on social media i was tweeting on Twitter replying her but she didn't reply or interacted with me at all. I know something was up cause she was active but was ignoring to intract with my tweets that is super fuckin hurtful you know . So i continued replying to her until she finally replied once said "atleast banda eid Mubarak kh deta hai instead" that's when i kmew she was angry so my dumbass lied and tried to frame it in such a way where i acted like i sent eid message but your Instagram didn't deliver and when she asked me to send ss and then i was gonna edit a picture but instead i just apologized and said i tried to sent everyone but forgot clicking your profile but by her messenges i knew she still was pissed cause when i asked why didn't she wish me Eid Mubarak? She cold heartily said "same thing as yours happened to me" and i knew she's pissed i tried to make it joke and said "what a coincidence" but she never replied and i knew she was angry but that actually made me feel good cause that anger meant she wanted me to send her a Eid wish and that i was important enough to her that she expected it from me and then the turmoil started cause i was now finally getting ready to tell her why i didn't send a message and tell her cause i was angry and wanted to ask her that question 
+                    </p>
+                    <p class="text-amber-50/90 leading-relaxed text-lg animate__animated animate__fadeIn animate__delay-3s">
+                        I was literally this close and i mean this close to asking her. I so wanted for her to talk to me so i can ask her but i still couldn't find the guts to ask her and i wanted to write this just so i know literally how close i was ti asking her and i feel like this was the closet ever i got to telling her and this was the first time i actually felt so hurt cause she wasn't talking to me and like always that stupid thought happened again oh what if she just blocks and then it's so totally over i fuckin fear that block button a lot
+                    </p>
+
+                    <div class="absolute bottom-4 right-4 flex items-center">
+                        <div class="ink-pen w-4 h-12 rounded-lg mr-2 bg-gradient-to-r from-gray-800 to-gray-600"></div>
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-amber-600 to-amber-800 border border-amber-400/30"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-between mt-12">
+            <a href="playlist.html" class="nav-btn bg-gradient-to-r from-amber-900/80 to-rose-900/80 text-amber-100 border border-amber-800/50"><i data-feather="arrow-left"></i> Back</a>
+            <a href="diary2.html" class="nav-btn bg-gradient-to-r from-rose-900/80 to-amber-900/80 text-rose-100 border border-rose-800/50">Next <i data-feather="arrow-right"></i></a>
+        </div>
+    </div>
+</main>
+
+<script>
+// Show diary on button click
+document.getElementById('read-btn').addEventListener('click', () => {
+    document.getElementById('intro').style.display = 'none';
+    document.getElementById('diary-content').style.display = 'block';
+});
+
+// Floating petals
+const petalsContainer = document.querySelector('.floating-petals');
+const petalEmojis = ['🌸','🌹','🌷','💮','🌺'];
+for(let i=0;i<20;i++){
+    const p = document.createElement('div');
+    p.className='petal';
+    p.innerText=petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
+    p.style.left = Math.random()*100 + 'vw';
+    p.style.animationDuration = 10 + Math.random()*10 + 's';
+    p.style.fontSize = 16 + Math.random()*16 + 'px';
+    p.style.animationDelay = Math.random()*5 + 's';
+    petalsContainer.appendChild(p);
+}
+
+// Feather icons
+feather.replace();
+</script>
+
+</body>
+</html>

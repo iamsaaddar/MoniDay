@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Menahil - Our Messages</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Dark Cute Background */
+        .chat-bg {
+            background: radial-gradient(circle at top, #3a003d, #0a0010 80%);
+        }
+
+        /* Floating hearts */
+        .msg-heart {
+            position: fixed;
+            font-size: 20px;
+            opacity: 0.55;
+            animation: heartFloat 6s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes heartFloat {
+            0% { transform: translateY(110vh) scale(0.6); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-120px) scale(1.2); opacity: 0; }
+        }
+
+        /* Chat Animations */
+        .msg-left { animation: slideLeft 0.7s ease forwards; opacity: 0; }
+        .msg-right { animation: slideRight 0.7s ease forwards; opacity: 0; }
+
+        @keyframes slideLeft {
+            0% { transform: translateX(-40px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideRight {
+            0% { transform: translateX(40px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Moni bubble = pink */
+        .bubble-moni {
+            background: rgba(255, 115, 160, 0.2);
+            border: 1px solid rgba(255, 115, 160, 0.45);
+            color: #ffb3d9;
+        }
+
+        /* Saadi bubble = red */
+        .bubble-saadi {
+            background: rgba(255, 50, 50, 0.2);
+            border: 1px solid rgba(255, 80, 80, 0.45);
+            color: #ff9e9e;
+        }
+
+        /* Base bubble style */
+        .bubble {
+            backdrop-filter: blur(8px);
+            padding: 14px 16px;
+            max-width: 75%;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(255, 0, 80, 0.25);
+            font-size: 1rem;
+            position: relative;
+        }
+
+        .bubble-left::after, .bubble-right::after {
+            content: "";
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            transform: rotate(45deg);
+        }
+
+        /* Moni tail */
+        .bubble-moni.bubble-left::after {
+            left: -7px;
+            top: 12px;
+            background: rgba(255, 115, 160, 0.25);
+            border-left: 1px solid rgba(255, 115, 160, 0.45);
+            border-bottom: 1px solid rgba(255, 115, 160, 0.45);
+        }
+
+        /* Saadi tail */
+        .bubble-saadi.bubble-right::after {
+            right: -7px;
+            top: 12px;
+            background: rgba(255, 50, 50, 0.25);
+            border-right: 1px solid rgba(255, 80, 80, 0.45);
+            border-top: 1px solid rgba(255, 80, 80, 0.45);
+        }
+
+        /* Conversation Title */
+        .section-title {
+            text-align: center;
+            margin: 40px 0 20px;
+            color: #ff77c7;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body class="chat-bg min-h-screen overflow-x-hidden">
+
+<div id="msg-heart-container"></div>
+
+<main class="py-10 px-4 md:px-8 lg:px-12">
+    <div class="max-w-3xl mx-auto">
+
+        <h1 class="text-4xl md:text-5xl font-dancing text-center text-pink-200 mb-12">
+            Our Messages
+        </h1>
+
+        <!-- ========= CONVO 1 ========= -->
+        <div class="section-title">Boo Boo</div>
+
+        <div class="msg-right flex justify-end mb-6">
+            <div class="bubble bubble-saadi bubble-right">Aww Thanks Honey</div>
+        </div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">weirdo</div>
+        </div>
+
+        <div class="msg-right flex justify-end mb-6">
+            <div class="bubble bubble-saadi bubble-right">Not my boo boo 😢</div>
+        </div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">😡😡😡😡😡 i am your fucking boo boo !!</div>
+        </div>
+
+        <!-- ========= CONVO 2 ========= -->
+        <div class="section-title">Watch it Already</div>
+
+        <div class="msg-right flex justify-end mb-6">
+            <div class="bubble bubble-saadi bubble-right">it will be animations</div>
+        </div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">why aren't you watching it already?</div>
+        </div>
+
+        <div class="msg-right flex justify-end mb-6">
+            <div class="bubble bubble-saadi bubble-right">😂😂😂😂😂</div>
+        </div>
+       <!-- ========= CONVO 5 ========= -->
+        <div class="section-title">Submissive Bitch</div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">
+                what makes you think i'll listen to you?
+            </div>
+        </div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">
+                I'm changing this
+            </div>
+        </div>
+
+        <div class="msg-right flex justify-end mb-6">
+            <div class="bubble bubble-saadi bubble-right">
+                i know you will listen 😌
+            </div>
+        </div>
+
+        <div class="text-center text-pink-300 my-4">----- 1 hour later ------</div>
+
+        <div class="msg-right flex justify-end mb-6">
+            <div class="bubble bubble-saadi bubble-right">
+                see you listened to me 😉
+            </div>
+        </div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">
+                nooooooo 😢😢😢
+            </div>
+        </div>
+ 
+     
+        <!-- ========= CONVO 3 ========= -->
+        <div class="section-title">Embarassement</div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">
+                Bonvita hota hai nalayak saatvi fail bandy
+            </div>
+        </div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">
+                😢 wait it was correct
+            </div>
+        </div>
+
+        <div class="msg-right flex justify-end mb-6">
+            <div class="bubble bubble-saadi bubble-right">
+                the second hand embarassement i felt for you 😂
+            </div>
+        </div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">
+                same 😭 dafa ho jao abh zyada bisti feel ho rhi hai
+            </div>
+        </div>
+
+        <!-- ========= CONVO 4 ========= -->
+        <div class="section-title">Homie</div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">what are u doing?</div>
+        </div>
+
+        <div class="msg-right flex justify-end mb-6">
+            <div class="bubble bubble-saadi bubble-right">talking to girl</div>
+        </div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">oh really who?</div>
+        </div>
+
+        <div class="msg-right flex justify-end mb-6">
+            <div class="bubble bubble-saadi bubble-right">😭😭</div>
+        </div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">oh wait</div>
+        </div>
+
+        <!-- ========= CONVO 4 ========= -->
+        <div class="section-title">Weird Hoe</div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">ye tou main huoon 😭</div>
+        </div>
+
+        <div class="msg-right flex justify-end mb-6">
+            <div class="bubble bubble-saadi bubble-right">I knew it already not just a hoe… a weird hoe</div>
+        </div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">i am a hoe mujhe pata nai tha</div>
+        </div>
+
+        <div class="msg-right flex justify-end mb-6">
+            <div class="bubble bubble-saadi bubble-right">🙂</div>
+        </div>
+        
+        <!-- ========= CONVO 6 ========= -->
+        <div class="section-title">Your Iconic Texts</div>
+
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">
+                i don't ever wanna put that in my mouth unless it's a dare
+            </div>
+        </div>
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">
+                i would love to molest young teen boys
+        </div>
+        </div>
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">
+                mai bana doon gi mood...
+            </div>
+        </div>
+        <div class="msg-left flex mb-6">
+            <div class="bubble bubble-moni bubble-left">
+                i just realized something that i am the dumbest person alive
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-between mt-12">
+            <a href="memories.html"
+               class="bg-gradient-to-r from-pink-500 to-purple-700 text-white px-8 py-4 rounded-full text-xl font-bold shadow-lg hover:scale-105 transition-all flex items-center">
+                <i data-feather="arrow-left" class="mr-2"></i> Back
+            </a>
+
+            <a href="playlist.html"
+               class="bg-gradient-to-r from-pink-500 to-purple-700 text-white px-8 py-4 rounded-full text-xl font-bold shadow-lg hover:scale-105 transition-all flex items-center">
+                Next <i data-feather="arrow-right" class="ml-2"></i>
+            </a>
+        </div>
+
+    </div>
+</main>
+
+<script>
+    feather.replace();
+
+    // floating hearts
+    function spawnMsgHearts() {
+        const c = document.getElementById("msg-heart-container");
+        const arr = ["💗","💖","💘","💕","💝"];
+        const el = document.createElement("div");
+        el.className = "msg-heart";
+        el.innerText = arr[Math.floor(Math.random() * arr.length)];
+        el.style.left = Math.random() * 90 + "vw";
+        el.style.fontSize = Math.random() * 18 + 18 + "px";
+        el.style.animationDuration = Math.random() * 4 + 4 + "s";
+        c.appendChild(el);
+        setTimeout(() => el.remove(), 7000);
+    }
+
+    setInterval(spawnMsgHearts, 700);
+</script>
+
+</body>
+</html>
