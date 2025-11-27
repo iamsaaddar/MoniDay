@@ -1,79 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Menahil - A Gift</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Menahil - Life Journey</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/feather-icons"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+
+/* BODY */
+body {
+    font-family: 'Cormorant Garamond', serif;
+    background: linear-gradient(to bottom, #0a0f2e, #1a1f3d);
+    color: #f3f3f3;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* HEADER */
+h1, h2, h3 {
+    font-family: 'Dancing Script', cursive;
+}
+.gradient-text {
+    background: linear-gradient(to right, #7b61ff, #00d2ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* BACKGROUND ANIMATIONS */
+@keyframes floatAnim {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+    50% { transform: translateY(-50px) rotate(180deg); opacity: 0.8; }
+    100% { transform: translateY(0) rotate(360deg); opacity: 0.5; }
+}
+.floating-shapes {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+    z-index: 0;
+}
+.floating-shapes div {
+    position: absolute;
+    width: 15px; height: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255,255,255,0.3);
+    animation: floatAnim linear infinite;
+}
+
+/* JOURNEY CONTAINER */
+.journey {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    position: relative;
+    z-index: 10;
+}
+.journey-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-in-out;
+}
+.journey-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* IMAGE CARD */
+.journey-item img {
+    width: 80%;
+    max-width: 300px;
+    border-radius: 1rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    transition: transform 0.4s;
+}
+.journey-item img:hover {
+    transform: scale(1.05) rotate(-1deg);
+}
+
+/* PHOTO CAPTION */
+.journey-item p {
+    font-size: 1rem;
+    text-align: center;
+    color: #c5c5c5;
+    line-height: 1.5rem;
+}
+
+/* GIFT BOX */
+.gift-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem auto;
+    cursor: pointer;
+    z-index: 10;
+}
+.gift-box {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #4b0082, #1a1f3d);
+    border-radius: 1rem;
+    position: relative;
+    transition: transform 0.3s;
+    box-shadow: 0 15px 25px rgba(0,0,0,0.6);
+}
+.gift-box:hover {
+    transform: translateY(-5px);
+}
+.gift-box .ribbon-horizontal, .gift-box .ribbon-vertical {
+    position: absolute;
+    background: #fff;
+}
+.ribbon-horizontal { top: 50%; left: 0; width: 100%; height: 8px; transform: translateY(-50%); }
+.ribbon-vertical { left: 50%; top: 0; width: 8px; height: 100%; transform: translateX(-50%); }
+
+/* NAV BUTTONS */
+.nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    background: linear-gradient(to right, #7b61ff, #00d2ff);
+    color: #1a1f3d;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+.nav-btn:hover { transform: scale(1.05); }
+
+/* ANIMATIONS */
+@keyframes fadeInUp { 
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+</style>
 </head>
-<body class="bg-gradient-to-br from-violet-100 to-indigo-100 min-h-screen overflow-x-hidden">
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center transition-opacity duration-1000">
-        <div class="text-center">
-            <h1 class="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-600 mb-4 font-dancing">
-                Happy Birthday Menahil
-            </h1>
-            <div class="w-20 h-20 mx-auto border-8 border-violet-400 border-t-indigo-500 rounded-full animate-spin"></div>
+
+<body>
+
+<!-- Floating Shapes -->
+<div class="floating-shapes">
+    <div style="top:20%; left:10%; animation-duration:6s;"></div>
+    <div style="top:50%; left:80%; animation-duration:8s;"></div>
+    <div style="top:70%; left:30%; animation-duration:5s;"></div>
+    <div style="top:10%; left:60%; animation-duration:7s;"></div>
+    <div style="top:40%; left:40%; animation-duration:6.5s;"></div>
+</div>
+
+<main class="py-12 px-4 flex flex-col items-center relative z-10">
+    <h1 class="text-4xl md:text-5xl gradient-text mb-8">My Life Journey</h1>
+
+    <div class="gift-container" id="gift-container">
+        <div class="gift-box">
+            <div class="ribbon-horizontal"></div>
+            <div class="ribbon-vertical"></div>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <main class="py-12 px-4 md:px-8 lg:px-12 min-h-screen flex items-center justify-center">
-        <div class="max-w-4xl w-full text-center">
-            <h1 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-indigo-600 font-dancing mb-8">
-                A Special Gift For You
-            </h1>
-            
-            <div class="gift-container relative mx-auto w-64 h-64 md:w-80 md:h-80 mb-12">
-                <div id="gift-box" class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full h-3/4 bg-gradient-to-br from-red-500 to-red-600 rounded-t-lg shadow-2xl cursor-pointer transition-all duration-300 hover:-translate-y-2">
-                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-8 bg-gradient-to-br from-red-600 to-red-700 rounded-full"></div>
-                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-8 bg-red-400"></div>
-                    <div class="ribbon absolute top-1/4 left-0 w-full h-1 bg-white"></div>
-                    <div class="ribbon absolute top-1/3 left-0 w-full h-1 bg-white"></div>
-                </div>
-                <div id="gift-content" class="hidden absolute inset-0 bg-white rounded-lg shadow-xl p-6 overflow-y-auto">
-                    <h3 class="text-2xl font-bold text-violet-700 mb-4 font-dancing">My Life Through Photos</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <img src="http://static.photos/people/320x240/1" alt="Childhood" class="rounded-lg shadow hover:scale-105 transition-transform">
-                        <img src="http://static.photos/people/320x240/2" alt="Teenage" class="rounded-lg shadow hover:scale-105 transition-transform">
-                        <img src="http://static.photos/people/320x240/3" alt="Graduation" class="rounded-lg shadow hover:scale-105 transition-transform">
-                        <img src="http://static.photos/people/320x240/4" alt="Now" class="rounded-lg shadow hover:scale-105 transition-transform">
-                    </div>
-                    <p class="mt-6 text-gray-700">
-                        I wanted to share my journey with you, from childhood to now. Every step has led me to you.
-                    </p>
-                </div>
-            </div>
-
-            <div class="flex justify-between mt-12">
-                <a href="diary3.html" class="bg-gradient-to-r from-violet-500 to-indigo-600 text-white px-8 py-4 rounded-full text-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center">
-                    <i data-feather="arrow-left" class="mr-2"></i> Back
-                </a>
-                <a href="outro.html" class="bg-gradient-to-r from-violet-500 to-indigo-600 text-white px-8 py-4 rounded-full text-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center">
-                    Next <i data-feather="arrow-right" class="ml-2"></i>
-                </a>
-            </div>
+    <div class="journey w-full max-w-md hidden" id="journey">
+        <div class="journey-item">
+            <img src="http://static.photos/people/320x240/1" alt="Childhood">
+            <p>Childhood - Innocent and full of wonder 🌌</p>
         </div>
-    </main>
+        <div class="journey-item">
+            <img src="http://static.photos/people/320x240/2" alt="Teenage">
+            <p>Teenage - Learning and dreaming ✨</p>
+        </div>
+        <div class="journey-item">
+            <img src="http://static.photos/people/320x240/3" alt="Graduation">
+            <p>Graduation - New beginnings 🌙</p>
+        </div>
+        <div class="journey-item">
+            <img src="http://static.photos/people/320x240/4" alt="Now">
+            <p>Now - Here with you 🌌</p>
+        </div>
+    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const giftBox = document.getElementById('gift-box');
-            const giftContent = document.getElementById('gift-content');
-            
-            giftBox.addEventListener('click', function() {
-                this.classList.add('hidden');
-                giftContent.classList.remove('hidden');
-                giftContent.classList.add('animate-fadeIn');
+    <div class="flex justify-between mt-12 w-full max-w-md">
+        <a href="diary3.html" class="nav-btn"><i data-feather="arrow-left"></i> Back</a>
+        <a href="outro.html" class="nav-btn">Next <i data-feather="arrow-right"></i></a>
+    </div>
+</main>
+
+<script>
+    const giftContainer = document.getElementById('gift-container');
+    const journey = document.getElementById('journey');
+    const items = journey.querySelectorAll('.journey-item');
+
+    giftContainer.addEventListener('click', () => {
+        giftContainer.classList.add('animate__animated', 'animate__bounceOut');
+        setTimeout(() => {
+            giftContainer.style.display = 'none';
+            journey.classList.remove('hidden');
+            items.forEach((item, i) => {
+                setTimeout(() => item.classList.add('visible'), i * 400);
             });
-        });
-    </script>
-    <script src="script.js"></script>
-    <script>feather.replace();</script>
+        }, 600);
+    });
+</script>
+<script>feather.replace();</script>
+
 </body>
 </html>

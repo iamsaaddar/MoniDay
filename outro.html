@@ -1,66 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Menahil - Outro</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Menahil - Outro Letter</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/feather-icons"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+
+/* BODY */
+body {
+    font-family: 'Cormorant Garamond', serif;
+    background: linear-gradient(to bottom, #0a0f2e, #1a1f3d);
+    color: #f3f3f3;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* BACKGROUND ANIMATIONS */
+@keyframes floatHeart {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+    50% { transform: translateY(-50px) rotate(180deg); opacity: 1; }
+    100% { transform: translateY(0) rotate(360deg); opacity: 0.7; }
+}
+.floating-hearts {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+    z-index: 0;
+}
+.floating-hearts div {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: floatHeart linear infinite;
+}
+
+/* LETTER CONTAINER */
+.letter {
+    background: linear-gradient(to bottom right, rgba(20,20,40,0.9), rgba(30,30,50,0.8));
+    border-radius: 2rem;
+    padding: 2rem;
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+    position: relative;
+    z-index: 10;
+}
+
+/* LETTER HEADER */
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    background: linear-gradient(to right, #7b61ff, #00d2ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+}
+
+/* HEART ICON */
+.heart-icon {
+    font-size: 3rem;
+    display: inline-block;
+    animation: heartbeat 1.5s infinite;
+    margin-bottom: 1.5rem;
+}
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.1); }
+}
+
+/* LETTER TEXT */
+.letter p {
+    font-size: 1.125rem;
+    line-height: 1.8rem;
+    color: #cce2cb;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s forwards;
+}
+.letter p:nth-child(2) { animation-delay: 0.5s; }
+.letter p:nth-child(3) { animation-delay: 1s; }
+.letter p:nth-child(4) { animation-delay: 1.5s; }
+
+/* NAV BUTTON */
+.nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    background: linear-gradient(to right, #7b61ff, #00d2ff);
+    color: #1a1f3d;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    margin-top: 2rem;
+    transition: all 0.3s ease;
+}
+.nav-btn:hover { transform: scale(1.05); }
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px);}
+    100% { opacity: 1; transform: translateY(0);}
+}
+</style>
 </head>
-<body class="bg-gradient-to-br from-pink-100 to-rose-100 min-h-screen overflow-x-hidden">
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center transition-opacity duration-1000">
-        <div class="text-center">
-            <h1 class="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-600 mb-4 font-dancing">
-                Happy Birthday Menahil
-            </h1>
-            <div class="w-20 h-20 mx-auto border-8 border-pink-400 border-t-rose-500 rounded-full animate-spin"></div>
-        </div>
+<body>
+
+<!-- Floating hearts background -->
+<div class="floating-hearts">
+    <div style="top:10%; left:20%; animation-duration:6s;">💌</div>
+    <div style="top:30%; left:70%; animation-duration:7s;">💌</div>
+    <div style="top:60%; left:40%; animation-duration:5s;">💌</div>
+    <div style="top:80%; left:10%; animation-duration:8s;">💌</div>
+</div>
+
+<main class="py-12 flex flex-col items-center justify-center min-h-screen relative z-10">
+    <div class="letter animate__animated animate__fadeInUp">
+        <h1>To My Love</h1>
+        <div class="heart-icon">❤️</div>
+
+        <p>As this little journey comes to an end, I want you to know that my love for you is just beginning. Every day with you is a gift I cherish deeply.</p>
+        <p>Thank you for being you — the most beautiful, kind, and wonderful person I know. May this year be filled with all the love, joy, and happiness you bring to everyone around you.</p>
+        <p>Happy Birthday, my love.</p>
+
+        <a href="index.html" class="nav-btn mt-8">
+            Start Again <i data-feather="refresh-cw"></i>
+        </a>
     </div>
+</main>
 
-    <!-- Main Content -->
-    <main class="py-12 px-4 md:px-8 lg:px-12 min-h-screen flex items-center justify-center">
-        <div class="max-w-4xl w-full">
-            <div class="bg-white bg-opacity-80 rounded-3xl shadow-2xl p-8 md:p-12 text-center">
-                <h1 class="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-600 font-dancing mb-8">
-                    To My Love
-                </h1>
-                
-                <div class="heart-beat mx-auto w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-pink-400 to-rose-500 rounded-full flex items-center justify-center mb-8 shadow-lg">
-                    <span class="text-white text-4xl md:text-5xl">❤️</span>
-                </div>
-                
-                <p class="text-xl md:text-2xl text-gray-700 leading-relaxed mb-8">
-                    As this little journey comes to an end, I want you to know that my love for you is just beginning. Every day with you is a gift I cherish deeply. 
-                    <br><br>
-                    Thank you for being you - the most beautiful, kind, and wonderful person I know. May this year be filled with all the love, joy, and happiness you bring to everyone around you.
-                    <br><br>
-                    Happy Birthday, my love.
-                </p>
-                
-                <div class="mt-12">
-                    <a href="index.html" class="bg-gradient-to-r from-pink-500 to-rose-600 text-white px-8 py-4 rounded-full text-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center mx-auto w-max">
-                        Start Again <i data-feather="refresh-cw" class="ml-2"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create floating hearts continuously
-            setInterval(createFloatingHeart, 1000);
-            
-            // Create initial burst of confetti
-            createConfetti();
-        });
-    </script>
-    <script src="script.js"></script>
-    <script>feather.replace();</script>
+<script>feather.replace();</script>
 </body>
 </html>
