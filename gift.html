@@ -4,52 +4,55 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Menahil - Life Journey</title>
+
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/feather-icons"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
 
 /* BODY */
 body {
     font-family: 'Cormorant Garamond', serif;
-    background: linear-gradient(to bottom, #0a0f2e, #1a1f3d);
-    color: #f3f3f3;
+    background: radial-gradient(circle at top, #0a0a0a, #05050f, #000);
+    color: #e8e8e8;
     overflow-x: hidden;
     position: relative;
 }
 
 /* HEADER */
-h1, h2, h3 {
+h1 {
     font-family: 'Dancing Script', cursive;
 }
 .gradient-text {
-    background: linear-gradient(to right, #7b61ff, #00d2ff);
+    background: linear-gradient(to right, #8b5cf6, #00d4ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* BACKGROUND ANIMATIONS */
+/* FLOATING SHAPES */
 @keyframes floatAnim {
-    0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
-    50% { transform: translateY(-50px) rotate(180deg); opacity: 0.8; }
-    100% { transform: translateY(0) rotate(360deg); opacity: 0.5; }
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+    50% { transform: translateY(-40px) rotate(180deg); opacity: 0.8; }
+    100% { transform: translateY(0) rotate(360deg); opacity: 0.4; }
 }
 .floating-shapes {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+    inset: 0;
+    pointer-events: none;
     z-index: 0;
 }
 .floating-shapes div {
     position: absolute;
-    width: 15px; height: 15px;
-    background: rgba(255, 255, 255, 0.2);
+    width: 14px; height: 14px;
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 50%;
-    box-shadow: 0 0 8px rgba(255,255,255,0.3);
+    box-shadow: 0 0 10px rgba(255,255,255,0.2);
     animation: floatAnim linear infinite;
 }
 
-/* JOURNEY CONTAINER */
+/* JOURNEY */
 .journey {
     display: flex;
     flex-direction: column;
@@ -76,18 +79,20 @@ h1, h2, h3 {
     width: 80%;
     max-width: 300px;
     border-radius: 1rem;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    transition: transform 0.4s;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+    transition: transform 0.4s, filter 0.4s;
+    filter: brightness(0.85) contrast(1.1);
 }
 .journey-item img:hover {
-    transform: scale(1.05) rotate(-1deg);
+    transform: scale(1.06) rotate(-1deg);
+    filter: brightness(1);
 }
 
-/* PHOTO CAPTION */
+/* CAPTION */
 .journey-item p {
-    font-size: 1rem;
     text-align: center;
-    color: #c5c5c5;
+    font-size: 1rem;
+    color: #bdbdbd;
     line-height: 1.5rem;
 }
 
@@ -96,49 +101,53 @@ h1, h2, h3 {
     position: relative;
     width: 200px;
     height: 200px;
-    margin: 0 auto 2rem auto;
+    margin-bottom: 2rem;
     cursor: pointer;
-    z-index: 10;
+    z-index: 20;
 }
 .gift-box {
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, #4b0082, #1a1f3d);
+    background: linear-gradient(to bottom, #1a1a1a, #0f0f0f);
     border-radius: 1rem;
-    position: relative;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.7);
     transition: transform 0.3s;
-    box-shadow: 0 15px 25px rgba(0,0,0,0.6);
+    position: relative;
 }
 .gift-box:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
 }
-.gift-box .ribbon-horizontal, .gift-box .ribbon-vertical {
+.ribbon-horizontal,
+.ribbon-vertical {
     position: absolute;
-    background: #fff;
+    background: #8b5cf6;
 }
-.ribbon-horizontal { top: 50%; left: 0; width: 100%; height: 8px; transform: translateY(-50%); }
-.ribbon-vertical { left: 50%; top: 0; width: 8px; height: 100%; transform: translateX(-50%); }
+.ribbon-horizontal {
+    top: 50%; left: 0;
+    width: 100%; height: 8px;
+    transform: translateY(-50%);
+}
+.ribbon-vertical {
+    top: 0; left: 50%;
+    width: 8px; height: 100%;
+    transform: translateX(-50%);
+}
 
 /* NAV BUTTONS */
 .nav-btn {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 0.5rem;
-    font-weight: 600;
+    background: linear-gradient(to right, #8b5cf6, #00d4ff);
     padding: 1rem 2rem;
+    color: #000;
     border-radius: 9999px;
-    background: linear-gradient(to right, #7b61ff, #00d2ff);
-    color: #1a1f3d;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    transition: transform 0.3s;
 }
-.nav-btn:hover { transform: scale(1.05); }
-
-/* ANIMATIONS */
-@keyframes fadeInUp { 
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
+.nav-btn:hover {
+    transform: scale(1.05);
 }
 </style>
 </head>
@@ -147,16 +156,17 @@ h1, h2, h3 {
 
 <!-- Floating Shapes -->
 <div class="floating-shapes">
-    <div style="top:20%; left:10%; animation-duration:6s;"></div>
-    <div style="top:50%; left:80%; animation-duration:8s;"></div>
-    <div style="top:70%; left:30%; animation-duration:5s;"></div>
+    <div style="top:15%; left:10%; animation-duration:6s;"></div>
+    <div style="top:55%; left:80%; animation-duration:8s;"></div>
+    <div style="top:75%; left:30%; animation-duration:5s;"></div>
     <div style="top:10%; left:60%; animation-duration:7s;"></div>
     <div style="top:40%; left:40%; animation-duration:6.5s;"></div>
 </div>
 
 <main class="py-12 px-4 flex flex-col items-center relative z-10">
-    <h1 class="text-4xl md:text-5xl gradient-text mb-8">My Life Journey</h1>
+    <h1 class="text-4xl md:text-5xl gradient-text mb-8">Some Photos Of Me</h1>
 
+    <!-- GIFT BOX -->
     <div class="gift-container" id="gift-container">
         <div class="gift-box">
             <div class="ribbon-horizontal"></div>
@@ -164,25 +174,35 @@ h1, h2, h3 {
         </div>
     </div>
 
+    <!-- JOURNEY IMAGES -->
     <div class="journey w-full max-w-md hidden" id="journey">
         <div class="journey-item">
-            <img src="http://static.photos/people/320x240/1" alt="Childhood">
-            <p>Childhood - Innocent and full of wonder 🌌</p>
+            <img src="images/gift1.jpeg" alt="">
+            <p>.2011.</p>
         </div>
+
         <div class="journey-item">
-            <img src="http://static.photos/people/320x240/2" alt="Teenage">
-            <p>Teenage - Learning and dreaming ✨</p>
+            <img src="images/gift2.jpeg" alt="">
+            <p>.2014.</p>
         </div>
+
         <div class="journey-item">
-            <img src="http://static.photos/people/320x240/3" alt="Graduation">
-            <p>Graduation - New beginnings 🌙</p>
+            <img src="images/gift3.jpeg" alt="">
+            <p>.2017.</p>
         </div>
+
         <div class="journey-item">
-            <img src="http://static.photos/people/320x240/4" alt="Now">
-            <p>Now - Here with you 🌌</p>
+            <img src="images/gift4.jpeg" alt="">
+            <p>.2020.</p>
+        </div>
+
+        <div class="journey-item">
+            <img src="images/gift5.jpeg" alt="">
+            <p>.2025.</p>
         </div>
     </div>
 
+    <!-- NAVIGATION -->
     <div class="flex justify-between mt-12 w-full max-w-md">
         <a href="diary3.html" class="nav-btn"><i data-feather="arrow-left"></i> Back</a>
         <a href="outro.html" class="nav-btn">Next <i data-feather="arrow-right"></i></a>
@@ -190,21 +210,22 @@ h1, h2, h3 {
 </main>
 
 <script>
-    const giftContainer = document.getElementById('gift-container');
-    const journey = document.getElementById('journey');
-    const items = journey.querySelectorAll('.journey-item');
+const giftContainer = document.getElementById('gift-container');
+const journey = document.getElementById('journey');
+const items = journey.querySelectorAll('.journey-item');
 
-    giftContainer.addEventListener('click', () => {
-        giftContainer.classList.add('animate__animated', 'animate__bounceOut');
-        setTimeout(() => {
-            giftContainer.style.display = 'none';
-            journey.classList.remove('hidden');
-            items.forEach((item, i) => {
-                setTimeout(() => item.classList.add('visible'), i * 400);
-            });
-        }, 600);
-    });
+giftContainer.addEventListener('click', () => {
+    giftContainer.classList.add('animate__animated', 'animate__bounceOut');
+    setTimeout(() => {
+        giftContainer.style.display = 'none';
+        journey.classList.remove('hidden');
+        items.forEach((item, i) => {
+            setTimeout(() => item.classList.add('visible'), i * 400);
+        });
+    }, 600);
+});
 </script>
+
 <script>feather.replace();</script>
 
 </body>
