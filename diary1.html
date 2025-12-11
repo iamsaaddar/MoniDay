@@ -16,7 +16,7 @@ body { font-family: 'Cormorant Garamond', serif; background: linear-gradient(to 
 
 /* Candle flicker effect overlay */
 @keyframes candleFlicker { 0%,100%{opacity:0.8;} 50%{opacity:1;} }
-.candle-overlay { animation: candleFlicker 3s infinite ease-in-out; mix-blend-mode: overlay; }
+.candle-overlay { animation: candleFlicker 3s infinite ease-in-out; }
 
 /* Ink spots */
 .ink-spot { position: absolute; width:50px; height:50px; background: radial-gradient(circle, rgba(30,30,30,0.8) 0%, transparent 70%); border-radius:50%; animation: inkMove 8s infinite alternate ease-in-out;}
@@ -27,7 +27,7 @@ body { font-family: 'Cormorant Garamond', serif; background: linear-gradient(to 
 
 /* Floating petals */
 .floating-petals { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
-.petal { position:absolute; font-size:2rem; opacity:0.8; animation: floatPetal linear infinite; }
+.petal { position:absolute; font-size:2rem; opacity:0.8; animation: floatPetal linear infinite; will-change: transform, opacity; }
 @keyframes floatPetal { 0%{transform: translateY(-10px) rotate(0deg); opacity:0;} 10%{opacity:1;} 100%{transform: translateY(120vh) rotate(360deg); opacity:0;} }
 
 /* Navigation buttons */
@@ -43,6 +43,8 @@ body { font-family: 'Cormorant Garamond', serif; background: linear-gradient(to 
 #intro button { padding:1rem 2rem; font-weight:600; border-radius:9999px; background:linear-gradient(to right,#ffda7b,#ff7b7b); color:#000; transition:0.3s; }
 #intro button:hover { transform:scale(1.05); }
 </style>
+/* Disable heavy backdrop blur to improve performance on this page */
+.backdrop-blur-sm { backdrop-filter: none !important; }
 </head>
 
 <body class="relative">
@@ -120,7 +122,7 @@ document.getElementById('read-btn').addEventListener('click', () => {
 // Floating petals
 const petalsContainer = document.querySelector('.floating-petals');
 const petalEmojis = ['🌸','🌹','🌷','💮','🌺'];
-for(let i=0;i<20;i++){
+for(let i=0;i<12;i++){
     const p = document.createElement('div');
     p.className='petal';
     p.innerText=petalEmojis[Math.floor(Math.random()*petalEmojis.length)];

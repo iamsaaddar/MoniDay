@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Surprise Gift</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* (REUSED STYLES: :root, body, candle-overlay, gradient-text - Same as before) */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap');
+
+        :root {
+            --color-bg-dark: #090909;
+            --color-paper-dark: #141414;
+            --color-text-light: #f5f5f5;
+            --color-accent-gold: #ffda7b;
+            --color-accent-rose: #ff7b7b;
+            --box-color: #6d071a; /* Dark Red/Maroon */
+            --ribbon-color: #ffda7b; /* Gold */
+        }
+
+        body { 
+            font-family: 'Cormorant Garamond', serif; 
+            background: var(--color-bg-dark); 
+            color: var(--color-text-light); 
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden; 
+        }
+
+        /* Candle Flicker effect */
+        @keyframes candleFlicker { 
+            0%, 100% { opacity: 0.95; filter: brightness(1.05); } 
+            50% { opacity: 1; filter: brightness(1.1); } 
+        }
+        .candle-overlay { 
+            background: radial-gradient(circle at 50% 50%, rgba(255, 160, 0, 0.05) 0%, rgba(0, 0, 0, 0.5) 70%);
+            animation: candleFlicker 4s infinite alternate ease-in-out; 
+            mix-blend-mode: soft-light;
+        }
+
+        /* Gradient Text */
+        .gradient-text { 
+            background: linear-gradient(to right, var(--color-accent-gold), var(--color-accent-rose)); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+
+        /* Video Container (Same as before) */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; 
+            height: 0;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.75rem;
+        }
+
+        /* *** NEW 3D GIFT BOX STYLES ***
+        */
+        .gift-wrapper {
+            cursor: pointer;
+            perspective: 1000px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .gift-box {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        /* BOX LID - The main visible part */
+        .gift-lid {
+            position: absolute;
+            width: 100%;
+            height: 50px; /* Lid height */
+            background-color: var(--box-color);
+            border-radius: 10px;
+            top: -20px; /* Position above the body */
+            transform: rotateX(90deg) translateZ(25px); /* Position it correctly in 3D space */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s ease;
+        }
+        .gift-wrapper:hover .gift-lid {
+            /* On hover, slightly lift and tilt the lid to suggest opening */
+            transform: rotateX(90deg) translateZ(40px) translateY(-50px);
+            box-shadow: 0 15px 30px rgba(255, 123, 123, 0.5);
+        }
+
+        /* BOX BODY */
+        .gift-body {
+            position: absolute;
+            top: 30px; /* Below the lid */
+            width: 100%;
+            height: 220px; /* Body height */
+            background-color: var(--box-color);
+            border: 2px solid var(--ribbon-color); /* The bottom ribbon edge */
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+        }
+
+        /* RIBBON VERTICAL */
+        .ribbon-v {
+            position: absolute;
+            width: 30px;
+            height: 100%;
+            background-color: var(--ribbon-color);
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* RIBBON HORIZONTAL */
+        .ribbon-h {
+            position: absolute;
+            height: 30px;
+            width: 100%;
+            background-color: var(--ribbon-color);
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* BOW / KNOT */
+        .ribbon-knot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background-color: var(--ribbon-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+            z-index: 10;
+        }
+
+        /* The Gift Card / Clickable Message on top of the box */
+        #message-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--ribbon-color);
+            border-radius: 5px;
+            text-align: center;
+            z-index: 20;
+            transition: opacity 0.3s ease;
+        }
+        
+    </style>
+</head>
+
+<body class="relative">
+
+    <div class="fixed inset-0 candle-overlay pointer-events-none z-0"></div>
+
+    <main class="relative z-10 p-4 w-full max-w-2xl mx-auto">
+        
+        <header class="text-center mb-12 animate__animated animate__fadeInDown">
+            <h1 class="text-6xl font-['Dancing_Script'] gradient-text">A Little Extra</h1>
+            <p class="text-xl text-amber-200/70 italic mt-2">Open when you're ready.</p>
+        </header>
+
+        <div id="gift-card" class="text-center animate__animated animate__fadeInUp">
+            
+            <div id="gift-wrapper" class="gift-wrapper">
+                <button id="gift-card-btn" class="gift-box">
+                    
+                    <div class="gift-lid"></div> 
+
+                    <div class="gift-body">
+                        <div class="ribbon-v"></div>
+                        <div class="ribbon-h"></div>
+                        <div class="ribbon-knot"></div>
+
+                        <div id="message-overlay" class="text-center">
+                            <i data-feather="message-circle" class="w-8 h-8 mx-auto text-amber-300 mb-2"></i>
+                            <p class="text-sm font-playfair text-amber-100/90 leading-snug">
+                                **Oh wait a minute**, you have a secret message! Who could it be? Click to find out!
+                            </p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+            
+        </div>
+
+        <div id="video-reveal" class="hidden mt-8">
+            <h2 class="text-center text-3xl font-playfair text-amber-400 mb-6 
+                       animate__animated animate__fadeInDown animate__delay-1s">
+                Surprise! (Hit Play)
+            </h2>
+            <div class="video-container shadow-2xl shadow-rose-900/50 
+                        animate__animated animate__zoomIn animate__slow animate__delay-1s">
+                
+                <iframe src="moni.mp4" 
+                        title="Birthday Video Message" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="text-center mt-10 animate__animated animate__fadeInUp animate__delay-2s">
+                <a href="index.html" class="inline-flex items-center gap-2 px-8 py-3 
+                                          bg-gradient-to-r from-rose-600 to-amber-600 text-black 
+                                          font-semibold rounded-full shadow-lg hover:opacity-90 transition-opacity">
+                    <i data-feather="book-open"></i> Back to the Diary
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Get elements
+        const giftWrapper = document.getElementById('gift-wrapper');
+        const giftCard = document.getElementById('gift-card');
+        const giftCardBtn = document.getElementById('gift-card-btn');
+        const videoReveal = document.getElementById('video-reveal');
+        const giftLid = document.querySelector('.gift-lid');
+        const messageOverlay = document.getElementById('message-overlay');
+
+        // Event listener for opening the gift
+        giftCardBtn.addEventListener('click', () => {
+            // 1. Trigger the "open" visual effect first
+            giftLid.style.transform = 'rotateX(0deg) translateZ(150px) translateY(-250px)'; // Lifts the lid dramatically
+            giftLid.style.opacity = '0';
+            messageOverlay.style.opacity = '0';
+            
+            // 2. Hide the card/wrapper with a fade-out animation
+            giftCard.classList.remove('animate__fadeInUp');
+            giftCard.classList.add('animate__fadeOut');
+
+            // 3. Wait for the animation/transition to finish, then display the video
+            setTimeout(() => {
+                giftCard.style.display = 'none';
+                videoReveal.classList.remove('hidden');
+                // The video container and its children already have their own entrance animations
+            }, 800); // Increased delay to 800ms to allow the lid animation to complete nicely
+        });
+
+        // Initialize Feather icons
+        feather.replace();
+    </script>
+
+</body>
+</html>
