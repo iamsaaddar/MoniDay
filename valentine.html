@@ -639,355 +639,437 @@
     </audio>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // DOM Elements
-            const envelope = document.getElementById('envelope');
-            const letterContainer = document.getElementById('letterContainer');
-            const buttonsContainer = document.getElementById('buttonsContainer');
-            const yesBtn = document.getElementById('yesBtn');
-            const noBtn = document.getElementById('noBtn');
-            const celebration = document.getElementById('celebration');
-            const dramaticMessage = document.getElementById('dramaticMessage');
-            const musicToggle = document.getElementById('musicToggle');
-            const backgroundMusic = document.getElementById('backgroundMusic');
-            const yesSound = document.getElementById('yesSound');
-            const noSound = document.getElementById('noSound');
-            const question = document.getElementById('question');
-            const backgroundHearts = document.getElementById('backgroundHearts');
-            const backgroundPetals = document.getElementById('backgroundPetals');
-            const backgroundSparkles = document.getElementById('backgroundSparkles');
-            
-            // State variables
-            let isMusicOn = true;
-            let isLetterOpen = false;
-            let noBtnClicks = 0;
-            const containerRect = buttonsContainer.getBoundingClientRect();
-            
-            // Initialize background elements
-            createBackgroundElements();
-            
-            // Start background music
-            backgroundMusic.volume = 0.3;
-            backgroundMusic.play().catch(e => console.log("Autoplay prevented. User interaction required."));
-            
-            // Create floating hearts, petals and sparkles
-            function createBackgroundElements() {
-                // Create hearts
-                for (let i = 0; i < 25; i++) {
-                    const heart = document.createElement('div');
-                    heart.classList.add('heart');
-                    heart.innerHTML = '❤️';
-                    heart.style.left = `${Math.random() * 100}%`;
-                    heart.style.fontSize = `${Math.random() * 15 + 15}px`;
-                    heart.style.animationDuration = `${Math.random() * 10 + 15}s`;
-                    heart.style.animationDelay = `${Math.random() * 5}s`;
-                    backgroundHearts.appendChild(heart);
-                }
-                
-                // Create petals
-                for (let i = 0; i < 20; i++) {
-                    const petal = document.createElement('div');
-                    petal.classList.add('petal');
-                    petal.innerHTML = '🌸';
-                    petal.style.left = `${Math.random() * 100}%`;
-                    petal.style.fontSize = `${Math.random() * 10 + 20}px`;
-                    petal.style.animationDuration = `${Math.random() * 10 + 20}s`;
-                    petal.style.animationDelay = `${Math.random() * 5}s`;
-                    backgroundPetals.appendChild(petal);
-                }
-                
-                // Create sparkles
-                for (let i = 0; i < 15; i++) {
-                    const sparkle = document.createElement('div');
-                    sparkle.classList.add('sparkle');
-                    sparkle.innerHTML = '✨';
-                    sparkle.style.left = `${Math.random() * 100}%`;
-                    sparkle.style.top = `${Math.random() * 100}%`;
-                    sparkle.style.fontSize = `${Math.random() * 10 + 10}px`;
-                    sparkle.style.animationDelay = `${Math.random() * 2}s`;
-                    backgroundSparkles.appendChild(sparkle);
-                }
+        // Replace the entire JavaScript section with this updated code
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const envelope = document.getElementById('envelope');
+    const letterContainer = document.getElementById('letterContainer');
+    const buttonsContainer = document.getElementById('buttonsContainer');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const celebration = document.getElementById('celebration');
+    const dramaticMessage = document.getElementById('dramaticMessage');
+    const musicToggle = document.getElementById('musicToggle');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    const yesSound = document.getElementById('yesSound');
+    const noSound = document.getElementById('noSound');
+    const question = document.getElementById('question');
+    const backgroundHearts = document.getElementById('backgroundHearts');
+    const backgroundPetals = document.getElementById('backgroundPetals');
+    const backgroundSparkles = document.getElementById('backgroundSparkles');
+    
+    // State variables
+    let isMusicOn = true;
+    let isLetterOpen = false;
+    let noBtnClicks = 0;
+    
+    // NO button movement variables
+    let noBtnX = 0;
+    let noBtnY = 0;
+    let noBtnVelocityX = 3;
+    let noBtnVelocityY = 2;
+    let noBtnMoveInterval;
+    let isNoBtnMoving = false;
+    
+    // Initialize background elements
+    createBackgroundElements();
+    
+    // Start background music
+    backgroundMusic.volume = 0.3;
+    backgroundMusic.play().catch(e => console.log("Autoplay prevented. User interaction required."));
+    
+    // Create floating hearts, petals and sparkles
+    function createBackgroundElements() {
+        // Create hearts
+        for (let i = 0; i < 25; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.fontSize = `${Math.random() * 15 + 15}px`;
+            heart.style.animationDuration = `${Math.random() * 10 + 15}s`;
+            heart.style.animationDelay = `${Math.random() * 5}s`;
+            backgroundHearts.appendChild(heart);
+        }
+        
+        // Create petals
+        for (let i = 0; i < 20; i++) {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            petal.innerHTML = '🌸';
+            petal.style.left = `${Math.random() * 100}%`;
+            petal.style.fontSize = `${Math.random() * 10 + 20}px`;
+            petal.style.animationDuration = `${Math.random() * 10 + 20}s`;
+            petal.style.animationDelay = `${Math.random() * 5}s`;
+            backgroundPetals.appendChild(petal);
+        }
+        
+        // Create sparkles
+        for (let i = 0; i < 15; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.innerHTML = '✨';
+            sparkle.style.left = `${Math.random() * 100}%`;
+            sparkle.style.top = `${Math.random() * 100}%`;
+            sparkle.style.fontSize = `${Math.random() * 10 + 10}px`;
+            sparkle.style.animationDelay = `${Math.random() * 2}s`;
+            backgroundSparkles.appendChild(sparkle);
+        }
+    }
+    
+    // Function to start automatic NO button movement
+    function startNoButtonMovement() {
+        if (isNoBtnMoving) return;
+        
+        isNoBtnMoving = true;
+        
+        // Set initial random position within container
+        const containerWidth = buttonsContainer.offsetWidth;
+        const containerHeight = buttonsContainer.offsetHeight;
+        const btnWidth = noBtn.offsetWidth;
+        const btnHeight = noBtn.offsetHeight;
+        
+        noBtnX = Math.random() * (containerWidth - btnWidth);
+        noBtnY = Math.random() * (containerHeight - btnHeight);
+        
+        // Random initial velocity
+        noBtnVelocityX = (Math.random() * 4 + 2) * (Math.random() > 0.5 ? 1 : -1);
+        noBtnVelocityY = (Math.random() * 3 + 1.5) * (Math.random() > 0.5 ? 1 : -1);
+        
+        // Start movement animation
+        noBtnMoveInterval = setInterval(moveNoButtonAutomatically, 50);
+    }
+    
+    // Function to move NO button automatically
+    function moveNoButtonAutomatically() {
+        if (!isLetterOpen) return;
+        
+        const containerWidth = buttonsContainer.offsetWidth;
+        const containerHeight = buttonsContainer.offsetHeight;
+        const btnWidth = noBtn.offsetWidth;
+        const btnHeight = noBtn.offsetHeight;
+        
+        // Update position based on velocity
+        noBtnX += noBtnVelocityX;
+        noBtnY += noBtnVelocityY;
+        
+        // Bounce off walls
+        if (noBtnX <= 0) {
+            noBtnX = 0;
+            noBtnVelocityX = Math.abs(noBtnVelocityX) * (Math.random() * 0.3 + 0.9); // Random bounce factor
+            createHeartTrailAtButton();
+        }
+        if (noBtnX >= containerWidth - btnWidth) {
+            noBtnX = containerWidth - btnWidth;
+            noBtnVelocityX = -Math.abs(noBtnVelocityX) * (Math.random() * 0.3 + 0.9);
+            createHeartTrailAtButton();
+        }
+        if (noBtnY <= 0) {
+            noBtnY = 0;
+            noBtnVelocityY = Math.abs(noBtnVelocityY) * (Math.random() * 0.3 + 0.9);
+            createHeartTrailAtButton();
+        }
+        if (noBtnY >= containerHeight - btnHeight) {
+            noBtnY = containerHeight - btnHeight;
+            noBtnVelocityY = -Math.abs(noBtnVelocityY) * (Math.random() * 0.3 + 0.9);
+            createHeartTrailAtButton();
+        }
+        
+        // Apply new position
+        noBtn.style.left = `${noBtnX}px`;
+        noBtn.style.top = `${noBtnY}px`;
+        
+        // Occasionally change direction randomly
+        if (Math.random() < 0.02) {
+            noBtnVelocityX = (Math.random() * 4 + 2) * (Math.random() > 0.5 ? 1 : -1);
+        }
+        if (Math.random() < 0.02) {
+            noBtnVelocityY = (Math.random() * 3 + 1.5) * (Math.random() > 0.5 ? 1 : -1);
+        }
+        
+        // Occasionally create heart trail
+        if (Math.random() < 0.1) {
+            createHeartTrailAtButton();
+        }
+    }
+    
+    // Function to create heart trail at NO button position
+    function createHeartTrailAtButton() {
+        const btnRect = noBtn.getBoundingClientRect();
+        const btnCenterX = btnRect.left + btnRect.width / 2;
+        const btnCenterY = btnRect.top + btnRect.height / 2;
+        
+        const heart = document.createElement('div');
+        heart.innerHTML = '💖';
+        heart.style.position = 'fixed';
+        heart.style.left = `${btnCenterX}px`;
+        heart.style.top = `${btnCenterY}px`;
+        heart.style.fontSize = '12px';
+        heart.style.pointerEvents = 'none';
+        heart.style.zIndex = '1000';
+        heart.style.animation = 'fallPetals 1.5s linear forwards';
+        document.body.appendChild(heart);
+        
+        // Remove heart after animation
+        setTimeout(() => {
+            if (heart.parentNode) {
+                document.body.removeChild(heart);
             }
+        }, 1500);
+    }
+    
+    // Envelope click event
+    envelope.addEventListener('click', function() {
+        if (!isLetterOpen) {
+            // Open envelope
+            envelope.classList.add('open');
             
-            // Envelope click event
-            envelope.addEventListener('click', function() {
-                if (!isLetterOpen) {
-                    // Open envelope
-                    envelope.classList.add('open');
+            // Show letter after delay
+            setTimeout(() => {
+                letterContainer.style.display = 'block';
+                isLetterOpen = true;
+                
+                // Start NO button automatic movement
+                startNoButtonMovement();
+                
+                // Add typing animation to letter text
+                const letterParagraphs = document.querySelectorAll('.letter p');
+                letterParagraphs.forEach((p, index) => {
+                    const text = p.textContent;
+                    p.textContent = '';
                     
-                    // Show letter after delay
                     setTimeout(() => {
-                        letterContainer.style.display = 'block';
-                        isLetterOpen = true;
-                        
-                        // Add typing animation to letter text
-                        const letterParagraphs = document.querySelectorAll('.letter p');
-                        letterParagraphs.forEach((p, index) => {
-                            const text = p.textContent;
-                            p.textContent = '';
-                            
-                            setTimeout(() => {
-                                let i = 0;
-                                const typeWriter = () => {
-                                    if (i < text.length) {
-                                        p.textContent += text.charAt(i);
-                                        i++;
-                                        setTimeout(typeWriter, 30);
-                                    }
-                                };
-                                typeWriter();
-                            }, index * 1000);
-                        });
-                    }, 800);
-                }
-            });
-            
-            // Music toggle
-            musicToggle.addEventListener('click', function() {
-                if (isMusicOn) {
-                    backgroundMusic.pause();
-                    musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                } else {
-                    backgroundMusic.play();
-                    musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-                }
-                isMusicOn = !isMusicOn;
-            });
-            
-            // Yes button click
-            yesBtn.addEventListener('click', function() {
-                // Play sound
-                if (isMusicOn) {
-                    yesSound.currentTime = 0;
-                    yesSound.play();
-                }
-                
-                // Hide letter and buttons
-                letterContainer.style.display = 'none';
-                
-                // Show celebration
-                celebration.style.display = 'block';
-                
-                // Create celebration effects
-                createCelebrationEffects();
-            });
-            
-            // No button behavior
-            noBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                // Play sound
-                if (isMusicOn) {
-                    noSound.currentTime = 0;
-                    noSound.play();
-                }
-                
-                // Increment click counter
-                noBtnClicks++;
-                
-                // Show dramatic message on first click
-                if (noBtnClicks === 1) {
-                    letterContainer.style.display = 'none';
-                    dramaticMessage.style.display = 'block';
-                    
-                    // Shake the screen
-                    document.body.style.animation = 'shake 0.5s ease';
-                    setTimeout(() => {
-                        document.body.style.animation = '';
-                    }, 500);
-                    
-                    // Trigger celebration after 2 seconds
-                    setTimeout(() => {
-                        dramaticMessage.style.display = 'none';
-                        celebration.style.display = 'block';
-                        createCelebrationEffects();
-                    }, 2000);
-                }
-            });
-            
-            // Make No button move randomly
-            document.addEventListener('mousemove', moveNoButton);
-            document.addEventListener('touchmove', moveNoButton);
-            
-            function moveNoButton(e) {
-                if (!isLetterOpen) return;
-                
-                let x, y;
-                if (e.type === 'touchmove') {
-                    x = e.touches[0].clientX;
-                    y = e.touches[0].clientY;
-                } else {
-                    x = e.clientX;
-                    y = e.clientY;
-                }
-                
-                const btnRect = noBtn.getBoundingClientRect();
-                const btnCenterX = btnRect.left + btnRect.width / 2;
-                const btnCenterY = btnRect.top + btnRect.height / 2;
-                
-                const distance = Math.sqrt(
-                    Math.pow(x - btnCenterX, 2) + Math.pow(y - btnCenterY, 2)
-                );
-                
-                // If cursor is too close, move the button
-                if (distance < 100) {
-                    const containerWidth = buttonsContainer.offsetWidth;
-                    const containerHeight = buttonsContainer.offsetHeight;
-                    const btnWidth = noBtn.offsetWidth;
-                    const btnHeight = noBtn.offsetHeight;
-                    
-                    // Calculate new position
-                    let newX = Math.random() * (containerWidth - btnWidth);
-                    let newY = Math.random() * (containerHeight - btnHeight);
-                    
-                    // Make sure it doesn't go too close to yes button
-                    const yesBtnRect = yesBtn.getBoundingClientRect();
-                    const yesBtnCenterX = yesBtnRect.left + yesBtnRect.width / 2;
-                    const yesBtnCenterY = yesBtnRect.top + yesBtnRect.height / 2;
-                    
-                    const newBtnCenterX = buttonsContainer.getBoundingClientRect().left + newX + btnWidth / 2;
-                    const newBtnCenterY = buttonsContainer.getBoundingClientRect().top + newY + btnHeight / 2;
-                    
-                    const distanceToYes = Math.sqrt(
-                        Math.pow(newBtnCenterX - yesBtnCenterX, 2) + 
-                        Math.pow(newBtnCenterY - yesBtnCenterY, 2)
-                    );
-                    
-                    // If too close to yes button, recalculate
-                    if (distanceToYes < 150) {
-                        newX = Math.random() * (containerWidth - btnWidth);
-                        newY = Math.random() * (containerHeight - btnHeight);
-                    }
-                    
-                    // Apply new position
-                    noBtn.style.left = `${newX}px`;
-                    noBtn.style.top = `${newY}px`;
-                    
-                    // Create heart trail
-                    createHeartTrail(btnCenterX, btnCenterY);
-                }
-            }
-            
-            // Create heart trail when No button moves
-            function createHeartTrail(x, y) {
-                const heart = document.createElement('div');
-                heart.innerHTML = '💖';
-                heart.style.position = 'fixed';
-                heart.style.left = `${x}px`;
-                heart.style.top = `${y}px`;
-                heart.style.fontSize = '12px';
-                heart.style.pointerEvents = 'none';
-                heart.style.zIndex = '1000';
-                heart.style.animation = 'fallPetals 2s linear forwards';
-                document.body.appendChild(heart);
-                
-                // Remove heart after animation
-                setTimeout(() => {
-                    document.body.removeChild(heart);
-                }, 2000);
-            }
-            
-            // Create celebration effects
-            function createCelebrationEffects() {
-                // Create falling roses and hearts
-                for (let i = 0; i < 50; i++) {
-                    setTimeout(() => {
-                        const rose = document.createElement('div');
-                        rose.innerHTML = Math.random() > 0.5 ? '🌹' : '❤️';
-                        rose.style.position = 'fixed';
-                        rose.style.top = '-50px';
-                        rose.style.left = `${Math.random() * 100}vw`;
-                        rose.style.fontSize = `${Math.random() * 20 + 20}px`;
-                        rose.style.animation = `fallPetals ${Math.random() * 2 + 3}s linear forwards`;
-                        rose.style.zIndex = '1000';
-                        rose.style.pointerEvents = 'none';
-                        document.body.appendChild(rose);
-                        
-                        // Remove after animation
-                        setTimeout(() => {
-                            if (rose.parentNode) {
-                                document.body.removeChild(rose);
+                        let i = 0;
+                        const typeWriter = () => {
+                            if (i < text.length) {
+                                p.textContent += text.charAt(i);
+                                i++;
+                                setTimeout(typeWriter, 30);
                             }
-                        }, 5000);
-                    }, i * 100);
-                }
-                
-                // Brighten background
-                document.body.style.background = 'linear-gradient(135deg, #ffccd5 0%, #ff8fa3 60%, #ff4d6d 100%)';
-                
-                // Create firework bursts
-                for (let i = 0; i < 10; i++) {
-                    setTimeout(() => {
-                        createFirework();
-                    }, i * 300);
-                }
+                        };
+                        typeWriter();
+                    }, index * 1000);
+                });
+            }, 800);
+        }
+    });
+    
+    // Music toggle
+    musicToggle.addEventListener('click', function() {
+        if (isMusicOn) {
+            backgroundMusic.pause();
+            musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        } else {
+            backgroundMusic.play();
+            musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+        }
+        isMusicOn = !isMusicOn;
+    });
+    
+    // Yes button click
+    yesBtn.addEventListener('click', function() {
+        // Stop NO button movement
+        clearInterval(noBtnMoveInterval);
+        isNoBtnMoving = false;
+        
+        // Play sound
+        if (isMusicOn) {
+            yesSound.currentTime = 0;
+            yesSound.play();
+        }
+        
+        // Hide letter and buttons
+        letterContainer.style.display = 'none';
+        
+        // Show celebration
+        celebration.style.display = 'block';
+        
+        // Create celebration effects
+        createCelebrationEffects();
+    });
+    
+    // No button behavior - now includes automatic escape movement when hovered/touched
+    noBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Play sound
+        if (isMusicOn) {
+            noSound.currentTime = 0;
+            noSound.play();
+        }
+        
+        // Increment click counter
+        noBtnClicks++;
+        
+        // Show dramatic message on first click
+        if (noBtnClicks === 1) {
+            letterContainer.style.display = 'none';
+            dramaticMessage.style.display = 'block';
+            
+            // Shake the screen
+            document.body.style.animation = 'shake 0.5s ease';
+            setTimeout(() => {
+                document.body.style.animation = '';
+            }, 500);
+            
+            // Trigger celebration after 2 seconds
+            setTimeout(() => {
+                dramaticMessage.style.display = 'none';
+                celebration.style.display = 'block';
+                createCelebrationEffects();
+            }, 2000);
+        } else {
+            // On subsequent clicks, make button escape even faster
+            noBtnVelocityX *= 1.5;
+            noBtnVelocityY *= 1.5;
+            
+            // Limit max speed
+            const maxSpeed = 15;
+            const currentSpeed = Math.sqrt(noBtnVelocityX * noBtnVelocityX + noBtnVelocityY * noBtnVelocityY);
+            if (currentSpeed > maxSpeed) {
+                noBtnVelocityX = (noBtnVelocityX / currentSpeed) * maxSpeed;
+                noBtnVelocityY = (noBtnVelocityY / currentSpeed) * maxSpeed;
+            }
+        }
+    });
+    
+    // Make NO button escape faster when cursor is near (optional enhancement)
+    noBtn.addEventListener('mouseover', function() {
+        if (isLetterOpen) {
+            // Increase velocity to escape
+            noBtnVelocityX *= 1.2;
+            noBtnVelocityY *= 1.2;
+        }
+    });
+    
+    noBtn.addEventListener('touchstart', function() {
+        if (isLetterOpen) {
+            // Increase velocity to escape on touch
+            noBtnVelocityX *= 1.5;
+            noBtnVelocityY *= 1.5;
+            
+            // Also move in opposite direction of touch
+            const containerWidth = buttonsContainer.offsetWidth;
+            const containerHeight = buttonsContainer.offsetHeight;
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+            
+            // Move to opposite side
+            if (noBtnX < containerWidth / 2) {
+                noBtnVelocityX = Math.abs(noBtnVelocityX);
+            } else {
+                noBtnVelocityX = -Math.abs(noBtnVelocityX);
             }
             
-            // Create firework effect
-            function createFirework() {
-                const firework = document.createElement('div');
-                firework.style.position = 'fixed';
-                firework.style.left = `${Math.random() * 80 + 10}%`;
-                firework.style.top = `${Math.random() * 60 + 20}%`;
-                firework.style.width = '5px';
-                firework.style.height = '5px';
-                firework.style.borderRadius = '50%';
-                firework.style.backgroundColor = '#ff4d6d';
-                firework.style.boxShadow = '0 0 10px #ff4d6d';
-                firework.style.zIndex = '999';
-                firework.style.pointerEvents = 'none';
-                document.body.appendChild(firework);
+            if (noBtnY < containerHeight / 2) {
+                noBtnVelocityY = Math.abs(noBtnVelocityY);
+            } else {
+                noBtnVelocityY = -Math.abs(noBtnVelocityY);
+            }
+        }
+    });
+    
+    // Create celebration effects
+    function createCelebrationEffects() {
+        // Create falling roses and hearts
+        for (let i = 0; i < 50; i++) {
+            setTimeout(() => {
+                const rose = document.createElement('div');
+                rose.innerHTML = Math.random() > 0.5 ? '🌹' : '❤️';
+                rose.style.position = 'fixed';
+                rose.style.top = '-50px';
+                rose.style.left = `${Math.random() * 100}vw`;
+                rose.style.fontSize = `${Math.random() * 20 + 20}px`;
+                rose.style.animation = `fallPetals ${Math.random() * 2 + 3}s linear forwards`;
+                rose.style.zIndex = '1000';
+                rose.style.pointerEvents = 'none';
+                document.body.appendChild(rose);
                 
-                // Animate firework
-                let size = 5;
-                const grow = setInterval(() => {
-                    size += 10;
-                    firework.style.width = `${size}px`;
-                    firework.style.height = `${size}px`;
-                    firework.style.opacity = 1 - (size / 100);
-                    
-                    if (size > 100) {
-                        clearInterval(grow);
-                        document.body.removeChild(firework);
+                // Remove after animation
+                setTimeout(() => {
+                    if (rose.parentNode) {
+                        document.body.removeChild(rose);
                     }
-                }, 20);
+                }, 5000);
+            }, i * 100);
+        }
+        
+        // Brighten background
+        document.body.style.background = 'linear-gradient(135deg, #ffccd5 0%, #ff8fa3 60%, #ff4d6d 100%)';
+        
+        // Create firework bursts
+        for (let i = 0; i < 10; i++) {
+            setTimeout(() => {
+                createFirework();
+            }, i * 300);
+        }
+    }
+    
+    // Create firework effect
+    function createFirework() {
+        const firework = document.createElement('div');
+        firework.style.position = 'fixed';
+        firework.style.left = `${Math.random() * 80 + 10}%`;
+        firework.style.top = `${Math.random() * 60 + 20}%`;
+        firework.style.width = '5px';
+        firework.style.height = '5px';
+        firework.style.borderRadius = '50%';
+        firework.style.backgroundColor = '#ff4d6d';
+        firework.style.boxShadow = '0 0 10px #ff4d6d';
+        firework.style.zIndex = '999';
+        firework.style.pointerEvents = 'none';
+        document.body.appendChild(firework);
+        
+        // Animate firework
+        let size = 5;
+        const grow = setInterval(() => {
+            size += 10;
+            firework.style.width = `${size}px`;
+            firework.style.height = `${size}px`;
+            firework.style.opacity = 1 - (size / 100);
+            
+            if (size > 100) {
+                clearInterval(grow);
+                document.body.removeChild(firework);
             }
-            
-            // Create sparkle effect on touch
-            document.addEventListener('touchstart', function(e) {
-                for (let touch of e.touches) {
-                    createSparkle(touch.clientX, touch.clientY);
-                }
-            });
-            
-            function createSparkle(x, y) {
-                const sparkle = document.createElement('div');
-                sparkle.innerHTML = '✨';
-                sparkle.style.position = 'fixed';
-                sparkle.style.left = `${x}px`;
-                sparkle.style.top = `${y}px`;
-                sparkle.style.fontSize = '20px';
-                sparkle.style.transform = 'translate(-50%, -50%)';
-                sparkle.style.pointerEvents = 'none';
-                sparkle.style.zIndex = '1000';
-                sparkle.style.animation = 'sparkleTwinkle 0.5s ease forwards';
-                document.body.appendChild(sparkle);
-                
-                // Remove sparkle after animation
-                setTimeout(() => {
-                    document.body.removeChild(sparkle);
-                }, 500);
-            }
-            
-            // Add heartbeat vibration to question text
-            setInterval(() => {
-                question.style.animation = 'none';
-                setTimeout(() => {
-                    question.style.animation = 'heartbeat 2s infinite';
-                }, 10);
-            }, 4000);
-        });
+        }, 20);
+    }
+    
+    // Create sparkle effect on touch
+    document.addEventListener('touchstart', function(e) {
+        for (let touch of e.touches) {
+            createSparkle(touch.clientX, touch.clientY);
+        }
+    });
+    
+    function createSparkle(x, y) {
+        const sparkle = document.createElement('div');
+        sparkle.innerHTML = '✨';
+        sparkle.style.position = 'fixed';
+        sparkle.style.left = `${x}px`;
+        sparkle.style.top = `${y}px`;
+        sparkle.style.fontSize = '20px';
+        sparkle.style.transform = 'translate(-50%, -50%)';
+        sparkle.style.pointerEvents = 'none';
+        sparkle.style.zIndex = '1000';
+        sparkle.style.animation = 'sparkleTwinkle 0.5s ease forwards';
+        document.body.appendChild(sparkle);
+        
+        // Remove sparkle after animation
+        setTimeout(() => {
+            document.body.removeChild(sparkle);
+        }, 500);
+    }
+    
+    // Add heartbeat vibration to question text
+    setInterval(() => {
+        question.style.animation = 'none';
+        setTimeout(() => {
+            question.style.animation = 'heartbeat 2s infinite';
+        }, 10);
+    }, 4000);
+});
     </script>
 </body>
 </html>
